@@ -16,7 +16,7 @@ This is a script to connect to Vercel and Railway PR previews for a full-stack e
 
 ```
 yarn install
-npx ts-node ./deploy-preview
+npx ts-node ./deploy-preview run --branch {branch} --has-backend-pr true
 ```
 
 ## Required params (see .env.example)
