@@ -1,3 +1,4 @@
+import axios from "axios";
 
 const VERCEL_API_BASE_URL = 'https://api.vercel.com';
 
@@ -19,11 +20,23 @@ const createEnvironmentVariables = async (gitBranch, key, value) => {
   );
 }
 
-const createCustomDomain = async (gitBranch) => {
+const deleteEnvironmentVariables = async (environmentVariableId) => {
+  return await axios.delete(
+    `${VERCEL_API_BASE_URL}/v10/projects/${process.env.VERCEL_PROJECT_ID}/env/${environmentVariableId}?teamId=${process.env.VERCEL_TEAM_ID}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.VERCEL_API_TOKEN}`,
+      },
+    },
+  );
+
+}
+
+const createCustomDomain = async (gitBranch, domain) => {
   return await axios.post(
     `${VERCEL_API_BASE_URL}/v9/projects/${process.env.VERCEL_PROJECT_ID}/domains?teamId=${process.env.VERCEL_TEAM_ID}`,
     {
-        name: `${issueId}.preview.${process.env.INTERNAL_BASE_URL}`,
+        name: domain,
         gitBranch,
     },
     {
@@ -32,4 +45,10 @@ const createCustomDomain = async (gitBranch) => {
         },
     },
   );
+}
+
+export default {
+  createEnvironmentVariables,
+  deleteEnvironmentVariables,
+  createCustomDomain,
 }

@@ -1,9 +1,9 @@
 const prompt = require("prompt-sync")({ sigint: true });
 
-const cloudflare = requite('./lib/cloudflare');
-const railway = requite('./lib/railway');
-const vercel = requite('./lib/vercel');
-const utils = requite('./lib/utils');
+import cloudflare from "./lib/cloudflare";
+import railway from "./lib/railway";
+import vercel from "./lib/vercel";
+import utils from "./lib/utils";
 
 async function deployPreviewEnv(gitBranch, hasBackendPR) {
   try {
@@ -33,20 +33,21 @@ async function deployPreviewEnv(gitBranch, hasBackendPR) {
 
     // Step 4: Make a request to add env variable to vercel via their api
     console.log('Step 4: Make a request to add env variable to vercel via their api');
-    for (env in ['NEXTAUTH_URL', 'NEXT_PUBLIC_BASE_URL']) {
+    for (let env in ['NEXTAUTH_URL', 'NEXT_PUBLIC_BASE_URL']) {
       const domain = `https://${issueId}.preview.${process.env.INTERNAL_BASE_URL}`;
-      await createEnvironmentVariables(gitBranch, env, domain);
+      await vercel.createEnvironmentVariables(gitBranch, env, domain);
     }
     if (hasBackendPR === 'true') {
-      for (env in ['NEXT_PUBLIC_API_URL']) {
+      for (let env in ['NEXT_PUBLIC_API_URL']) {
         const domain = `https://${issueId}.preview-api.${process.env.INTERNAL_BASE_URL}`;
-        await createEnvironmentVariables(gitBranch, env, domain);
+        await vercel.createEnvironmentVariables(gitBranch, env, domain);
       }
     }
     
     // Step 5: Make a request to add a custom domain to vercel via their api
     console.log('Step 5: Make a request to add a custom domain to vercel via their api');
-    await vercel.createCustomDomain(gitBranch);
+    const domain = `${issueId}.preview.${process.env.INTERNAL_BASE_URL}`;
+    await vercel.createCustomDomain(gitBranch, domain);
   } catch (error) {
     console.error(error.response);
   }
