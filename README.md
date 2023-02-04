@@ -2,12 +2,12 @@
 
 (still a WIP as we figure out ways to optimize it)
 
-This is a script to connect to Vercel and Railway PR previews for a full-stack experiences. 
+This is a script to connect to Vercel and Railway PR previews for a full-stack experiences.
 
 ## How it works
 
 1. When a PR is opened, Vercel and Railway will create a preview environment
-2. You'll run the script - you'll need to pass in the branch name. 
+2. You'll run the script - you'll need to pass in the branch name.
 3. The script will pull the Railway environments and then parse them to find the one that matches the branch name
 4. ...create a new Cloudflare DNS record for the branch name point to the Railway preview url
 5. ...create a custom domain for the Railway preview
@@ -28,9 +28,9 @@ CLOUDFLARE_ZONE_ID
 RAILWAY_API_KEY
 RAILWAY_PROJECT_ID
 RAILWAY_SERVICE_ID
-VERCEL_API_TOKEN 
+VERCEL_API_TOKEN
 VERCEL_PROJECT_ID
-VERCEL_TEAM_ID 
+VERCEL_TEAM_ID
 ```
 
 ## Notes

@@ -2,7 +2,7 @@ import axios from "axios";
 import { print } from "graphql";
 import gql from "graphql-tag";
 
-const RAILWAY_API_BASE_URL = 'https://backboard.railway.app/graphql/v2';
+const RAILWAY_API_BASE_URL = "https://backboard.railway.app/graphql/v2";
 
 const getEnvironments = async () => {
   const GET_ENVIRONMENTS = gql`
@@ -25,16 +25,16 @@ const getEnvironments = async () => {
   return await axios.post(
     RAILWAY_API_BASE_URL,
     {
-        query: print(GET_ENVIRONMENTS),
-        variables: {
-            id: process.env.RAILWAY_PROJECT_ID,
-        },
+      query: print(GET_ENVIRONMENTS),
+      variables: {
+        id: process.env.RAILWAY_PROJECT_ID,
+      },
     },
     {
-        headers: {
-            Authorization: `Bearer ${process.env.RAILWAY_API_KEY}`,
-            'Content-Type': 'application/json',
-        },
+      headers: {
+        Authorization: `Bearer ${process.env.RAILWAY_API_KEY}`,
+        "Content-Type": "application/json",
+      },
     }
   );
 };
@@ -48,7 +48,7 @@ const createCustomDomain = async (domain, environmentId) => {
         environmentId
       }
     }
-  `
+  `;
   return await axios.post(
     RAILWAY_API_BASE_URL,
     {
@@ -58,13 +58,13 @@ const createCustomDomain = async (domain, environmentId) => {
           serviceId: process.env.RAILWAY_SERVICE_ID,
           environmentId,
           domain,
-        }
+        },
       },
     },
     {
       headers: {
         Authorization: `Bearer ${process.env.RAILWAY_API_KEY}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     }
   );
@@ -75,7 +75,7 @@ const deleteCustomDomain = async (domainId) => {
     mutation CustomDomainDelete($id: String!) {
       customDomainDelete(id: $id)
     }
-  `
+  `;
   return await axios.post(
     RAILWAY_API_BASE_URL,
     {
@@ -87,7 +87,7 @@ const deleteCustomDomain = async (domainId) => {
     {
       headers: {
         Authorization: `Bearer ${process.env.RAILWAY_API_KEY}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     }
   );
@@ -96,5 +96,5 @@ const deleteCustomDomain = async (domainId) => {
 export default {
   getEnvironments,
   createCustomDomain,
-    deleteCustomDomain,
-}
+  deleteCustomDomain,
+};
