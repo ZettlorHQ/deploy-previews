@@ -1,5 +1,7 @@
 # Deploy preview
 
+(still a WIP as we figure out ways to optimize it)
+
 This is a script to connect to Vercel and Railway PR previews for a full-stack experiences. 
 
 ## How it works
@@ -12,8 +14,14 @@ This is a script to connect to Vercel and Railway PR previews for a full-stack e
 6. ...add environment variables to the Vercel project for the branch name
 7. ...add custom domain in Vercel for the branch name
 
+```
+yarn install
+npx ts-node ./deploy-preview
+```
+
 ## Required params (see .env.example)
 
+```
 INTERNAL_BASE_URL # The base URL that the app will run on (e.g. cheese.dev)
 CLOUDFLARE_API_TOKEN
 CLOUDFLARE_ZONE_ID
@@ -23,6 +31,7 @@ RAILWAY_SERVICE_ID
 VERCEL_API_TOKEN 
 VERCEL_PROJECT_ID
 VERCEL_TEAM_ID 
+```
 
 ## Notes
 
