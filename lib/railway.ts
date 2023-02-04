@@ -7,17 +7,19 @@ const RAILWAY_API_BASE_URL = 'https://backboard.railway.app/graphql/v2';
 const getEnvironments = async () => {
   const GET_ENVIRONMENTS = gql`
     query ($id: String!) {
-        project(id: $id) {
-            name
-            environments {
-                edges {
-                    node {
-                        name
-                        isEphemeral
-                    }
-                }
+      project(id: $id) {
+        name
+        environments {
+          edges {
+            node {
+              name
+              meta {
+                branch
+              }
             }
+          }
         }
+      }
     }
   `;
   return await axios.post(
