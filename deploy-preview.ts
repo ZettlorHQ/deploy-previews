@@ -28,11 +28,13 @@ async function deployPreviewEnv(gitBranch, hasBackendPR) {
     }
 
     console.log('Step 4: Make a request to add env variable to vercel via their api');
+    # todo move these to .env so they can be part of the config
     for (let env in ['NEXTAUTH_URL', 'NEXT_PUBLIC_BASE_URL']) {
       const domain = `https://${issueId}.preview.${process.env.INTERNAL_BASE_URL}`;
       await vercel.createEnvironmentVariables(gitBranch, env, domain);
     }
     if (hasBackendPR === 'true') {
+      # todo move these to .env so they can be part of the config
       for (let env in ['NEXT_PUBLIC_API_URL']) {
         const domain = `https://${issueId}.preview-api.${process.env.INTERNAL_BASE_URL}`;
         await vercel.createEnvironmentVariables(gitBranch, env, domain);
@@ -47,6 +49,7 @@ async function deployPreviewEnv(gitBranch, hasBackendPR) {
   }
 }
 
+# TODO move prompts to be args on the script
 const branch = prompt('What is the "branch"? ');
 const hasBackendPR = prompt('Does the change have a backend PR? ("true" or "false") ');
 
